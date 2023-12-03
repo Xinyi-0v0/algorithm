@@ -7,7 +7,7 @@ import java.util.Queue;
 
 class Solution {
 
-    // Minimum Depth of Binary Tree
+    // Q1 Minimum Depth of Binary Tree
     int minD = Integer.MAX_VALUE;
 
     public int minDepth(TreeNode root) {
@@ -34,7 +34,7 @@ class Solution {
 
     }
 
-    // Count Complete Tree Nodes
+    // Q2 Count Complete Tree Nodes
     int sum = 0;
 
     public int countNodes(TreeNode root) {
@@ -55,7 +55,7 @@ class Solution {
         return;
     }
 
-    // Find Largest Value in Each Tree Row
+    // Q3 Find Largest Value in Each Tree Row
     public List<Integer> largestValues(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if (root == null) {
@@ -84,7 +84,7 @@ class Solution {
 
     }
 
-    // Leaf-Similar Trees
+    // Q4 Leaf-Similar Trees
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
         ArrayList<Integer> list1 = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
@@ -109,7 +109,7 @@ class Solution {
 
     }
 
-    // Deepest Leaves Sum
+    // Q5 Deepest Leaves Sum
     int maxD = Integer.MIN_VALUE;
     int leavesSum = 0;
 
@@ -136,4 +136,28 @@ class Solution {
         dfs4(node.right, currD + 1);
 
     }
+
+    // Q6
+    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        dfs5(root);
+        return ans;
+    }
+
+    public int dfs5(TreeNode u) {
+        if (u == null) {
+            return -1;
+        }
+        int leftLevel = dfs5(u.left);
+        int rightLevel = dfs5(u.right);
+        int currentLevel = Math.max(leftLevel, rightLevel)
+                + 1;
+        while (ans.size() <= currentLevel) {
+            ans.add(new ArrayList<Integer>());
+        }
+        ans.get(currentLevel).add(u.val);
+        return currentLevel;
+    }
+
 }
